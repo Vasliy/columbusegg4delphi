@@ -51,13 +51,14 @@ type
 {$ELSE}
     FBookmark: String;
 {$IFEND}
-
+    FLastState: TDataSetState;
     procedure HookEvents(aDataSet: TDataSet);
     procedure UnHookScrollEvents(aDataSet: TDataSet);
     procedure HookScrollEvents(aDataSet: TDataSet);
     function GetModuleByName(const aModuleName: String): TCustomColumbusModule;
 
     procedure OnNewRecord(aDataSet: TDataSet); overload;
+    procedure BeforeOpen(aDataSet: TDataSet); overload;
     procedure BeforePost(aDataSet: TDataSet); overload;
     procedure BeforeDelete(aDataSet: TDataSet); overload;
     procedure BeforeEdit(aDataSet: TDataSet); overload;
@@ -74,6 +75,7 @@ type
     procedure FreezeDataset(aDisableScrollEvents: Boolean = False);
     procedure UnFreezeDataset;
     procedure OnNewRecord; overload; virtual;
+    procedure BeforeOpen; overload; virtual;
     procedure BeforePost; overload; virtual;
     procedure BeforeDelete; overload; virtual;
     procedure BeforeEdit; overload; virtual;
@@ -95,6 +97,7 @@ type
     procedure SafePost; virtual;
     procedure SafeEdit; virtual;
     property DataSet: TDataSet read FDataSet;
+    property LastState: TDataSetState read FLastState;
   end;
 
   {$IF CompilerVersion >= 20}
@@ -153,21 +156,25 @@ end;
 
 procedure TCustomColumbusModule.BeforeDelete(aDataSet: TDataSet);
 begin
+  FLastState := aDataSet.State;
   BeforeDelete;
 end;
 
 procedure TCustomColumbusModule.BeforeEdit(aDataSet: TDataSet);
 begin
+  FLastState := aDataSet.State;
   BeforeEdit;
 end;
 
 procedure TCustomColumbusModule.BeforeInsert(aDataSet: TDataSet);
 begin
+  FLastState := aDataSet.State;
   BeforeInsert;
 end;
 
 procedure TCustomColumbusModule.BeforePost(aDataSet: TDataSet);
 begin
+  FLastState := aDataSet.State;
   BeforePost;
 end;
 
@@ -441,6 +448,17 @@ begin
 end;
 
 procedure TCustomColumbusModule.BeforeInsert;
+begin
+  // do nothing
+end;
+
+procedure TCustomColumbusModule.BeforeOpen(aDataSet: TDataSet);
+begin
+  FLastState := aDataSet.State;
+  BeforeOpen;
+end;
+
+procedure TCustomColumbusModule.BeforeOpen;
 begin
   // do nothing
 end;
