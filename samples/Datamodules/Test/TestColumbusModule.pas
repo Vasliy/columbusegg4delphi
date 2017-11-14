@@ -1,4 +1,4 @@
-unit TestColumbusModule;
+﻿unit TestColumbusModule;
 {
 
   Delphi DUnit Test Case

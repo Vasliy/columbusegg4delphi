@@ -1,4 +1,4 @@
-unit VclUIListener;
+﻿unit VclUIListener;
 
 interface
 

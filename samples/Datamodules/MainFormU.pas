@@ -1,4 +1,4 @@
-unit MainFormU;
+﻿unit MainFormU;
 
 interface
 
@@ -88,7 +88,7 @@ begin
   end;
   if SameText(ModuleName, 'TSalesModule') then
   begin
-    Label2.Caption := 'TOTAL SALES VALUE: � ' +
+    Label2.Caption := 'TOTAL SALES VALUE: Ђ ' +
       FormatCurr('0.00', (Sender as TSalesModule).TotalValue).PadLeft(8);
   end;
 end;
