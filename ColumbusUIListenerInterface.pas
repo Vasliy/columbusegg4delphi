@@ -3,10 +3,7 @@
 interface
 
 uses
-  {$IF CompilerVersion >= 20}
-  System.UITypes,
-  {$IFEND}
-  Dialogs;
+  System.UITypes;
 
 type
   IColumbusUIListener = interface

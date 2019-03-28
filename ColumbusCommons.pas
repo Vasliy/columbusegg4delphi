@@ -3,7 +3,7 @@
 interface
 
 uses
-  DB, Classes, Dialogs, SysUtils, ColumbusUIListenerInterface;
+  DB, Classes, SysUtils, ColumbusUIListenerInterface;
 
 type
   IColumbusObserver = interface
